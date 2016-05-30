@@ -1,6 +1,6 @@
-import React from "react";
-import ReactDOM from "react-dom";
-import Hello from "./hello";
+import React from 'react';
+import ReactDOM from 'react-dom';
+import Hello from './hello';
 
 ReactDOM.render(
-	<Hello name="world"/>, document.body);
+	<Hello name='world'/>, document.body);
