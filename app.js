@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Hello from './hello';
+import Container from './container';
 
 ReactDOM.render(
-	<Hello name='world'/>, document.body);
+	<Container />, document.getElementById('main'));
