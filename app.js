@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Container from './container';
+import Container from './components/container';
 
 ReactDOM.render(
-	<Container />, document.getElementById('main'));
+	<Container movies={['Batman','Pulp Fiction','Donnie Darko']}/>, 
+	document.getElementById('main'));

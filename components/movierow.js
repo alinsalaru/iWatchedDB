@@ -3,7 +3,9 @@ import React from 'react';
 export default React.createClass({
 	render: function() {
 		return (
-			<div id="container" />
+			<div className="movierow">
+				{this.props.name}
+			</div>	
 		)
 	}
 });
