@@ -9,8 +9,8 @@ export default React.createClass({
 			<div id="container">
 			<h1> Here is the movie list:</h1>
 			{
-				movies.map(function(movie,index) {  
-					return <MovieRow key={index} name={movie}/>
+				movies.map(function(movie) {
+					return <MovieRow key={movie.id} data={movie} />
 				}) 
 			}
 			</div>
