@@ -2,11 +2,19 @@ import React from 'react';
 import ButtonsRow from './buttonsrow';
 
 export default React.createClass({
+	getInitialState : function() {
+		return {
+			movie : []
+		}
+	},
+	componentWillMount : function() {
+		this.setState({ movie :this.props.data});
+	},
 	render: function() {
-		var movie = this.props.data;
+		var movie = this.state.movie;
 		return (
 			<div className="movierow">
-				{this.props.data.name}
+				{this.state.movie.name}
 				<ButtonsRow movie={movie} />
 			</div>	
 		)
