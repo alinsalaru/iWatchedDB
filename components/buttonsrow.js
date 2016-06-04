@@ -10,14 +10,14 @@ export default React.createClass({
 		this.setState({ movie :this.props.movie})
 	},
 	delete: function() {
-		console.log('delete');
+		this.props.deleteMovie(this.state.movie.id);
 	},
 	render: function() {
 		var movie =this.state.movie;
 		return (
 			<div className="buttons">
 				<a href="#" onClick={this.delete}>delete me</a>			
-			</div>	
+			</div>
 		)
 	}
 });

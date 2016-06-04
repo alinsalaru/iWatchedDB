@@ -12,10 +12,11 @@ export default React.createClass({
 	},
 	render: function() {
 		var movie = this.state.movie;
+		var deleteMovie = this.props.deleteMovie
 		return (
 			<div className="movierow">
 				{this.state.movie.name}
-				<ButtonsRow movie={movie} />
+				<ButtonsRow movie={movie} deleteMovie={deleteMovie}/>
 			</div>	
 		)
 	}
