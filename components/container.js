@@ -17,7 +17,6 @@ export default React.createClass({
 			if(movies[i].id === id) {
 				index = i;
 			}
-			break;
 		}
 		return index;
 	},
@@ -37,7 +36,9 @@ export default React.createClass({
 		var random  = getRandomInt(movies.length+1,1000);
 
 		//if generated id of movie already exists, try again
-		this.movieExists(random) > -1 ? random=getRandomInt(movies.length+1,1000) :'';
+		while(this.movieExists(random) > -1) { 
+			random=getRandomInt(movies.length+1,1000);
+		}
 		
 		movies.push({id:random,name:name});
 		this.setState({movies:movies});
