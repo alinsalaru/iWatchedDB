@@ -1,5 +1,6 @@
 import React from 'react';
 import MovieRow from './movierow';
+import Search from './searchcomponent';
 
 export default React.createClass({
 	getInitialState : function() {
@@ -43,6 +44,9 @@ export default React.createClass({
 		movies.push({id:random,name:name});
 		this.setState({movies:movies});
 	},
+	updateList : function(movies){
+		this.setState({movies: movies});
+	},
 	render: function() {
 		var movies= this.state.movies;
 		var actions = {
@@ -51,6 +55,7 @@ export default React.createClass({
 		}
 		return (
 			<div id="container">
+			<Search movies={movies} updateList={this.updateList}/>
 			<h1>{(movies.length>0) ?  'Here is the movie list': 'You have no movies'}</h1> 
 			{
 				movies.map(function(movie) {
