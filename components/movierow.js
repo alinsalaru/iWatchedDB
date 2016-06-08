@@ -11,12 +11,12 @@ export default React.createClass({
 		this.setState({ movie :this.props.data});
 	},
 	render: function() {
-		var movie = this.state.movie;
+		var movieState = this.state.movie;
 		var actions = this.props.actions
 		return (
 			<div className="movierow">
 				{this.state.movie.name}
-				<ButtonsRow movie={movie} actions={actions}/>
+				<ButtonsRow movie={movieState} actions={actions}/>
 			</div>	
 		)
 	}
