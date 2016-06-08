@@ -11,12 +11,8 @@ export default React.createClass({
 	componentWillMount : function() {
 		this.setState({ movies :this.props.movies})
 	},
-	movieExists : function(id) {
-		var movies = this.state.movies;
-		return movies.findIndex(el=>(el.id===id)); 
-	},
 	deleteMovie : function(id){
-		var index = this.movieExists(id);
+		var index = this.state.movies.findIndex(el=>(el.id===id));
 		if (index > -1) {
 		    this.props.movies.splice(index, 1);
 		}
@@ -31,7 +27,7 @@ export default React.createClass({
 		var random = getRandomInt(movies.length+1,1000);
 
 		//if generated id of movie already exists, try again
-		while(this.movieExists(random) > -1) { 
+		while(this.state.movies.findIndex(el=>(el.id===random)) > -1) { 
 			random=getRandomInt(movies.length+1,1000);
 		}
 		
