@@ -13,13 +13,7 @@ export default React.createClass({
 	},
 	movieExists : function(id) {
 		var movies = this.state.movies;
-		var index =-1;
-		for (var i = 0; i < movies.length; i++) {
-			if(movies[i].id === id) {
-				index = i;
-			}
-		}
-		return index;
+		return movies.findIndex(el=>(el.id===id)); 
 	},
 	deleteMovie : function(id){
 		var index = this.movieExists(id);
@@ -33,8 +27,8 @@ export default React.createClass({
 		  return Math.floor(Math.random() * (max - min)) + min;
 		};
 
-		var movies= this.state.movies;
-		var random  = getRandomInt(movies.length+1,1000);
+		var movies = this.state.movies;
+		var random = getRandomInt(movies.length+1,1000);
 
 		//if generated id of movie already exists, try again
 		while(this.movieExists(random) > -1) { 
