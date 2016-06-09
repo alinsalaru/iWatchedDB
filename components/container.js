@@ -1,12 +1,10 @@
-import React from 'react';
+import React, {Component} from 'react';
 import MovieRow from './movierow';
 import Search from './searchcomponent';
 
-export default React.createClass({
-	getInitialState : function() {
-		return {
-			movies : []
-		}
+export default class Container extends Component({
+	constructor(){
+		this.state = {movies : []}
 	},
 	componentWillMount : function() {
 		this.setState({ movies :this.props.movies})
@@ -41,15 +39,21 @@ export default React.createClass({
 	updateList : function(updatedMovieList){
 		this.setState({movies: updatedMovieList});
 	},
+	searchmovie : function(value) {
+		var moviesFiltered = this.props.movies.filter(m=>m.name.toLowerCase().includes(value.toLowerCase())) 
+
+		this.setState({movies: moviesFiltered});
+
+	},
 	render: function() {
-		var movies= this.state.movies;
+		var movies= this.state.movies.filter(m=>m.name.toLowerCase().includes(value.toLowerCase()));
 		var actions = {
 			deleteMovie : this.deleteMovie,
 			addMovie: this.addMovie
 		}
 		return (
 			<div id="container">
-				<Search movies={movies} updateList={this.updateList}/>
+				<Search onSearch={this.searchmovie}/>
 				<h1>{(movies.length>0) ?  'Here is the movie list': 'You have no movies'}</h1> 
 				{
 					movies.map(function(movie) {
