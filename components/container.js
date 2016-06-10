@@ -1,24 +1,28 @@
-import React from 'react';
+import React, {Component} from 'react';
 import MovieRow from './movierow';
 import Search from './searchcomponent';
 
-export default React.createClass({
-	getInitialState : function() {
-		return {
-			movies : []
-		}
-	},
-	componentWillMount : function() {
-		this.setState({ movies :this.props.movies})
-	},
-	deleteMovie : function(id){
-		var index = this.state.movies.findIndex(el=>(el.id===id));
+export default class Container extends Component{
+	constructor(props){
+		super(props);
+		this.state = {movies :props.movies};
+		this.searchmovie = this.searchmovie.bind(this);
+		this.movieExists = this.movieExists.bind(this);
+		this.deleteMovie = this.deleteMovie.bind(this);
+		this.addMovie = this.addMovie.bind(this);
+	}
+	movieExists(id) {
+		var movies = this.state.movies;
+		return movies.findIndex(el=>(el.id===id)); 
+	}
+	deleteMovie(id){
+		var index = this.movieExists(id);
 		if (index > -1) {
-		    this.props.movies.splice(index, 1);
+		    this.state.movies.splice(index, 1);
 		}
-		this.setState({ movies :this.props.movies});
-	},
-	addMovie : function(name){
+		this.setState({ movies :this.state.movies});
+	}
+	addMovie(name){
 		function getRandomInt(min, max) {
 		  return Math.floor(Math.random() * (max - min)) + min;
 		};
@@ -33,11 +37,13 @@ export default React.createClass({
 		
 		movies.push({id:random,name:name});
 		this.setState({movies:movies});
-	},
-	updateList : function(updatedMovieList){
-		this.setState({movies: updatedMovieList});
-	},
-	render: function() {
+	}
+	searchmovie(value) {
+		var moviesFiltered = this.props.movies.filter(m=>m.name.toLowerCase().includes(value.toLowerCase())) 
+		this.setState({movies: moviesFiltered});
+
+	}
+	render() {
 		var movies= this.state.movies;
 		var actions = {
 			deleteMovie : this.deleteMovie,
@@ -45,7 +51,7 @@ export default React.createClass({
 		}
 		return (
 			<div id="container">
-				<Search movies={movies} updateList={this.updateList}/>
+				<Search onSearch={this.searchmovie}/>
 				<h1>{(movies.length>0) ?  'Here is the movie list': 'You have no movies'}</h1> 
 				{
 					movies.map(function(movie) {
@@ -55,4 +61,4 @@ export default React.createClass({
 			</div>
 		)
 	}
-});
+};
