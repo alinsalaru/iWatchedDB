@@ -2,25 +2,27 @@ import React, {Component} from 'react';
 import MovieRow from './movierow';
 import Search from './searchcomponent';
 
-export default class Container extends Component({
-	constructor(){
-		this.state = {movies : []}
-	},
-	componentWillMount : function() {
-		this.setState({ movies :this.props.movies})
-	},
-	movieExists : function(id) {
+export default class Container extends Component{
+	constructor(props){
+		super(props);
+		this.state = {movies :props.movies};
+		this.searchmovie = this.searchmovie.bind(this);
+		this.movieExists = this.movieExists.bind(this);
+		this.deleteMovie = this.deleteMovie.bind(this);
+		this.addMovie = this.addMovie.bind(this);
+	}
+	movieExists(id) {
 		var movies = this.state.movies;
 		return movies.findIndex(el=>(el.id===id)); 
-	},
-	deleteMovie : function(id){
+	}
+	deleteMovie(id){
 		var index = this.movieExists(id);
 		if (index > -1) {
 		    this.props.movies.splice(index, 1);
 		}
 		this.setState({ movies :this.props.movies});
-	},
-	addMovie : function(name){
+	}
+	addMovie(name){
 		function getRandomInt(min, max) {
 		  return Math.floor(Math.random() * (max - min)) + min;
 		};
@@ -29,24 +31,23 @@ export default class Container extends Component({
 		var random = getRandomInt(movies.length+1,1000);
 
 		//if generated id of movie already exists, try again
-		while(this.movieExists(random) > -1) { 
+		while(this.movieExists(random) > -1) 	{ 
 			random=getRandomInt(movies.length+1,1000);
 		}
 		
 		movies.push({id:random,name:name});
 		this.setState({movies:movies});
-	},
-	updateList : function(updatedMovieList){
+	}
+	updateList(updatedMovieList){
 		this.setState({movies: updatedMovieList});
-	},
-	searchmovie : function(value) {
+	}
+	searchmovie(value) {
 		var moviesFiltered = this.props.movies.filter(m=>m.name.toLowerCase().includes(value.toLowerCase())) 
-
 		this.setState({movies: moviesFiltered});
 
-	},
-	render: function() {
-		var movies= this.state.movies.filter(m=>m.name.toLowerCase().includes(value.toLowerCase()));
+	}
+	render() {
+		var movies= this.state.movies;
 		var actions = {
 			deleteMovie : this.deleteMovie,
 			addMovie: this.addMovie
@@ -63,4 +64,4 @@ export default class Container extends Component({
 			</div>
 		)
 	}
-});
+};
