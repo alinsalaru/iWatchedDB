@@ -18,9 +18,9 @@ export default class Container extends Component{
 	deleteMovie(id){
 		var index = this.movieExists(id);
 		if (index > -1) {
-		    this.props.movies.splice(index, 1);
+		    this.state.movies.splice(index, 1);
 		}
-		this.setState({ movies :this.props.movies});
+		this.setState({ movies :this.state.movies});
 	}
 	addMovie(name){
 		function getRandomInt(min, max) {
@@ -37,9 +37,6 @@ export default class Container extends Component{
 		
 		movies.push({id:random,name:name});
 		this.setState({movies:movies});
-	}
-	updateList(updatedMovieList){
-		this.setState({movies: updatedMovieList});
 	}
 	searchmovie(value) {
 		var moviesFiltered = this.props.movies.filter(m=>m.name.toLowerCase().includes(value.toLowerCase())) 
