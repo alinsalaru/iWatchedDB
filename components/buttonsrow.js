@@ -1,28 +1,28 @@
-import React from 'react';
+import React,{Component} from 'react';
 
-export default React.createClass({
-	getInitialState : function() {
-		return {
-			movie : []
-		}
-	},
-	componentWillMount : function() {
-		this.setState({ movie :this.props.movie})
-	},
-	delete: function() {
+export default class ButtonsRow extends Component{
+	constructor(props){
+		super(props);
+		this.state = {movie : props.movie};
+		this.delete = this.delete.bind(this);
+		 this.addMovie = this.addMovie.bind(this);
+	}
+	delete() {
 		this.props.actions.deleteMovie(this.state.movie.id);
-	},
-	addMovie : function() {
+	}
+	addMovie () {
 		this.props.actions.addMovie('A Clockwork orange');
-	},
-	render: function() {
+	}
+	render() {
 		var movie =this.state.movie;
+		var deleteMovie = this.delete;
+		var addMovie = this.addMovie;
 		return (
 			<div className="buttons">
-				<a href="#" onClick={this.delete}>delete me</a>	
+				<a href="#" onClick={deleteMovie}>delete me</a>	
 				<br/>
-				<a href="#" onClick={this.addMovie}>add a new item</a>	
+				<a href="#" onClick={addMovie}>add a new item</a>	
 			</div>
 		)
 	}
-});
+};

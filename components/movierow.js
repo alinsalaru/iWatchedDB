@@ -1,23 +1,19 @@
-import React from 'react';
+import React, {Component} from 'react';
 import ButtonsRow from './buttonsrow';
 
-export default React.createClass({
-	getInitialState : function() {
-		return {
-			movie : []
-		}
-	},
-	componentWillMount : function() {
-		this.setState({ movie :this.props.data});
-	},
-	render: function() {
+export default class MovieRow extends Component{
+	constructor(props){
+		super(props);
+		this.state ={movie : props.data};
+	}
+	render() {
 		var movieState = this.state.movie;
 		var actions = this.props.actions
 		return (
 			<div className="movierow">
-				{this.state.movie.name}
+				{movieState.name}
 				<ButtonsRow movie={movieState} actions={actions}/>
 			</div>	
 		)
 	}
-});
+};
