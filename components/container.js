@@ -17,9 +17,7 @@ export default class Container extends Component{
 	}
 	deleteMovie(id){
 		var index = this.movieExists(id);
-		if (index > -1) {
-		    this.state.movies.splice(index, 1);
-		}
+		index > -1 ? this.state.movies.splice(index, 1) : '';
 		this.setState({ movies :this.state.movies});
 	}
 	addMovie(name){
@@ -35,26 +33,25 @@ export default class Container extends Component{
 			random=getRandomInt(movies.length+1,1000);
 		}
 		
-		movies.push({id:random,name:name});
+		movies.push({id:random,name:name})
 		this.setState({movies:movies});
 	}
 	searchmovie(value) {
 		var moviesFiltered = this.props.movies.filter(m=>m.name.toLowerCase().includes(value.toLowerCase())) 
 		this.setState({movies: moviesFiltered});
-
 	}
 	render() {
-		var movies= this.state.movies;
-		var actions = {
-			deleteMovie : this.deleteMovie,
-			addMovie: this.addMovie
-		}
+		var movies= this.state.movies,
+			actions = {
+				deleteMovie : this.deleteMovie,
+				addMovie: this.addMovie
+			};
 		return (
 			<div id="container">
 				<Search onSearch={this.searchmovie}/>
 				<h1>{(movies.length>0) ?  'Here is the movie list': 'You have no movies'}</h1> 
 				{
-					movies.map(function(movie) {
+					movies.map((movie)=>{
 						return <MovieRow key={movie.id} data={movie} actions={actions} />
 					}) 
 				}

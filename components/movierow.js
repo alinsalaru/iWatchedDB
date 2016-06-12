@@ -7,8 +7,8 @@ export default class MovieRow extends Component{
 		this.state ={movie : props.data};
 	}
 	render() {
-		var movieState = this.state.movie;
-		var actions = this.props.actions
+		var movieState = this.state.movie,
+	 		actions = this.props.actions;
 		return (
 			<div className="movierow">
 				{movieState.name}

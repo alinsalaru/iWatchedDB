@@ -14,14 +14,11 @@ export default class ButtonsRow extends Component{
 		this.props.actions.addMovie('A Clockwork orange');
 	}
 	render() {
-		var movie =this.state.movie;
-		var deleteMovie = this.delete;
-		var addMovie = this.addMovie;
+			var deleteMovie = this.delete,
+		    	addMovie = this.addMovie;
 		return (
 			<div className="buttons">
-				<a href="#" onClick={deleteMovie}>delete me</a>	
-				<br/>
-				<a href="#" onClick={addMovie}>add a new item</a>	
+				<a href="#" onClick={deleteMovie}>delete </a>	<a href="#" onClick={addMovie}>add a new item</a>	
 			</div>
 		)
 	}
