@@ -17,7 +17,7 @@ export default class Container extends Component{
 	}
 	deleteMovie(id){
 		let index = this.movieExists(id);
-		index > -1 ? this.state.movies.splice(index, 1) : '';
+		index > -1 && this.state.movies.splice(index, 1);
 		this.setState({ movies :this.state.movies});
 	}
 	addMovie(name){
