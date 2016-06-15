@@ -26,7 +26,7 @@ export default class Container extends Component{
 		  return Math.floor(Math.random() * (max - min)) + min;
 		};
 
-		let movies = this.state.movies;
+		let movies = this.props.movies;
 		let random = getRandomInt(movies.length+1,1000);
 
 		//if generated id of movie already exists, try again
@@ -39,10 +39,11 @@ export default class Container extends Component{
 	}
 	searchmovie(value) {
 		let moviesFiltered = this.props.movies.filter(m=>m.name.toLowerCase().includes(value.toLowerCase())); 
-		this.setState({movies: moviesFiltered, search : /*ReactDOM.findDOMNode(this.refs.search.refs.inp).*/value});
+		this.setState({movies: moviesFiltered, search : ReactDOM.findDOMNode(this.refs.search.refs.inp).value});
 	}
 	render() {
 		let movies= this.state.movies,
+			searchValue = this.state.search,
 			actions = {
 				deleteMovie : this.deleteMovie,
 				addMovie: this.addMovie
@@ -55,7 +56,7 @@ export default class Container extends Component{
 		return (
 			<div id="container">
 				<Search ref="search" onSearch={this.searchmovie}/>
-				{(rows.length===0)&& <a href="#" onClick={function(e){console.log(ReactDOM.findDOMNode(this.refs.search.refs.inp));}}>Add missing movie</a> }
+				{(rows.length===0)&& <a href="#" onClick={function() {actions.addMovie(searchValue)}}>Add missing movie</a> }
 				<h1>{(rows.length>0) ?  'Here is the movie list': 'You have no movies'}</h1> 
 				{rows}
 			</div>
