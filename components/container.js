@@ -1,11 +1,12 @@
 import React, {Component} from 'react';
+import ReactDOM from 'react-dom';
 import MovieRow from './movierow';
 import Search from './searchcomponent';
 
 export default class Container extends Component{
 	constructor(props){
 		super(props);
-		this.state = {movies :props.movies};
+		this.state = {movies :props.movies, search : ''};
 		this.searchmovie = this.searchmovie.bind(this);
 		this.movieExists = this.movieExists.bind(this);
 		this.deleteMovie = this.deleteMovie.bind(this);
@@ -38,7 +39,7 @@ export default class Container extends Component{
 	}
 	searchmovie(value) {
 		let moviesFiltered = this.props.movies.filter(m=>m.name.toLowerCase().includes(value.toLowerCase())); 
-		this.setState({movies: moviesFiltered});
+		this.setState({movies: moviesFiltered, search : /*ReactDOM.findDOMNode(this.refs.search.refs.inp).*/value});
 	}
 	render() {
 		let movies= this.state.movies,
@@ -49,10 +50,13 @@ export default class Container extends Component{
 			rows = movies.map(movie=>{
 				return <MovieRow key={movie.id} data={movie} actions={actions} />
 			});
+			console.log(this.refs.search);
+			console.log(this.state.search);
 		return (
 			<div id="container">
-				<Search onSearch={this.searchmovie}/>
-				<h1>{(movies.length>0) ?  'Here is the movie list': 'You have no movies'}</h1> 
+				<Search ref="search" onSearch={this.searchmovie}/>
+				{(rows.length===0)&& <a href="#" onClick={function(e){console.log(ReactDOM.findDOMNode(this.refs.search.refs.inp));}}>Add missing movie</a> }
+				<h1>{(rows.length>0) ?  'Here is the movie list': 'You have no movies'}</h1> 
 				{rows}
 			</div>
 		)
