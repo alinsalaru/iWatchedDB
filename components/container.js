@@ -1,25 +1,24 @@
 import React, {Component} from 'react';
-import ReactDOM from 'react-dom';
 import MovieRow from './movierow';
 import Search from './searchcomponent';
 
 export default class Container extends Component{
 	constructor(props){
 		super(props);
-		this.state = {movies :props.movies, search : ''};
+		this.state = {movies :props.movies, searchValue : ''};
 		this.searchmovie = this.searchmovie.bind(this);
 		this.movieExists = this.movieExists.bind(this);
 		this.deleteMovie = this.deleteMovie.bind(this);
 		this.addMovie = this.addMovie.bind(this);
 	}
 	movieExists(id) {
-		let movies = this.state.movies;
+		let movies = this.props.movies;
 		return movies.findIndex(el=>(el.id===id)); 
 	}
 	deleteMovie(id){
 		let index = this.movieExists(id);
-		index > -1 && this.state.movies.splice(index, 1);
-		this.setState({ movies :this.state.movies});
+		index > -1 && this.props.movies.splice(index, 1);
+		this.setState({ movies :this.props.movies});
 	}
 	addMovie(name){
 		function getRandomInt(min, max) {
@@ -39,11 +38,11 @@ export default class Container extends Component{
 	}
 	searchmovie(value) {
 		let moviesFiltered = this.props.movies.filter(m=>m.name.toLowerCase().includes(value.toLowerCase())); 
-		this.setState({movies: moviesFiltered, search : ReactDOM.findDOMNode(this.refs.search.refs.inp).value});
+		this.setState({movies: moviesFiltered, searchValue : value});
 	}
 	render() {
 		let movies= this.state.movies,
-			searchValue = this.state.search,
+			searchValue = this.state.searchValue,
 			actions = {
 				deleteMovie : this.deleteMovie,
 				addMovie: this.addMovie
@@ -51,12 +50,10 @@ export default class Container extends Component{
 			rows = movies.map(movie=>{
 				return <MovieRow key={movie.id} data={movie} actions={actions} />
 			});
-			console.log(this.refs.search);
-			console.log(this.state.search);
 		return (
 			<div id="container">
-				<Search ref="search" onSearch={this.searchmovie}/>
-				{(rows.length===0)&& <a href="#" onClick={function() {actions.addMovie(searchValue)}}>Add missing movie</a> }
+				<Search onSearch={this.searchmovie}/>
+				{(rows.length===0) && <a href="#" onClick={function() {actions.addMovie(searchValue)}}>Add missing movie</a> }
 				<h1>{(rows.length>0) ?  'Here is the movie list': 'You have no movies'}</h1> 
 				{rows}
 			</div>
