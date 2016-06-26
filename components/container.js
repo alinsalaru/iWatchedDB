@@ -51,10 +51,10 @@ export default class Container extends Component{
 				return <MovieRow key={movie.id} data={movie} actions={actions} />
 			});
 		return (
-			<div id="container">
+			<div className="container-fluid">
+				<h1>{(rows.length>0) ?  'Here is the movie list': 'You have no movies'}</h1> 
 				<Search onSearch={this.searchmovie}/>
 				{(rows.length===0) && <a href="#" onClick={function() {actions.addMovie(searchValue)}}>Add missing movie</a> }
-				<h1>{(rows.length>0) ?  'Here is the movie list': 'You have no movies'}</h1> 
 				{rows}
 			</div>
 		)
