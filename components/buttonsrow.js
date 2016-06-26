@@ -9,9 +9,9 @@ export default (props)=>{
 		actions.addMovie('A Clockwork orange');
 	}
 	return (
-		<div className="buttons">
+		<td className="buttons">
 			<a href="#" onClick={deleteMovie}>delete </a>	
 			<a href="#" onClick={addMovie}>add a new item</a>	
-		</div>
+		</td>
 	)
 };

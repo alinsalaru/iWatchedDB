@@ -52,10 +52,24 @@ export default class Container extends Component{
 			});
 		return (
 			<div className="container-fluid">
-				<h1>{(rows.length>0) ?  'Here is the movie list': 'You have no movies'}</h1> 
+				<h2>{(rows.length>0) ?  'Here is the movie list:': 'We couldn\'t find any movies matching your search.'}</h2> 
+				
 				<Search onSearch={this.searchmovie}/>
-				{(rows.length===0) && <a href="#" onClick={function() {actions.addMovie(searchValue)}}>Add missing movie</a> }
-				{rows}
+				{(rows.length===0) && <a href="#" onClick={function() {actions.addMovie(searchValue)}}>Add missing movie?</a> }
+
+				{(rows.length>0) &&
+					<table className="table table-hover">
+					<thead>
+						<tr>
+							<th>Title</th>
+							<th>Action</th>
+						</tr>
+					</thead>
+					<tbody>
+						{rows}
+					</tbody>
+				</table>
+				}
 			</div>
 		)
 	}
