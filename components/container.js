@@ -21,6 +21,10 @@ export default class Container extends Component{
 		this.setState({ movies :this.props.movies});
 	}
 	addMovie(name){
+		//validate entered text
+		name = name.trim();
+		if(name === '') {return;}
+
 		function getRandomInt(min, max) {
 		  return Math.floor(Math.random() * (max - min)) + min;
 		};
@@ -53,8 +57,15 @@ export default class Container extends Component{
 		return (
 			<div className="container-fluid">
 				<h2>{(rows.length>0) ?  'Here is the movie list:': 'We couldn\'t find any movies matching your search.'}</h2> 
-				
-				<Search onSearch={this.searchmovie}/>
+				<div className="row">
+					<div className="col-xs-8">
+						<Search onSearch={this.searchmovie}/>
+					</div>
+					<div className="col-xs-4">
+						<button type="button" className="btn btn-primary"
+							onClick={function() {actions.addMovie(searchValue)}}>Add Movie</button>
+					</div>
+				</div>
 				{(rows.length===0) && <a href="#" onClick={function() {actions.addMovie(searchValue)}}>Add missing movie?</a> }
 
 				{(rows.length>0) &&
