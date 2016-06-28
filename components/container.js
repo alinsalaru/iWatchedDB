@@ -72,7 +72,12 @@ export default class Container extends Component{
 					<table className="table table-hover">
 					<thead>
 						<tr>
+							<th>Year</th>
 							<th>Title</th>
+							<th>Directors</th>
+							<th>My rating</th>
+							<th>Imdb</th>
+							<th>Rotten</th>
 							<th>Action</th>
 						</tr>
 					</thead>
