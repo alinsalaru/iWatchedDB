@@ -69,7 +69,7 @@ export default class Container extends Component{
 				{(rows.length===0) && <a href="#" onClick={function() {actions.addMovie(searchValue)}}>Add missing movie?</a> }
 
 				{(rows.length>0) &&
-					<table className="table table-hover">
+				<table className="table table-hover">
 					<thead>
 						<tr>
 							<th>Year</th>
