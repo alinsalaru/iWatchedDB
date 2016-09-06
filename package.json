@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "webpack-dev-server",
-    "test": "mocha --compilers js:babel-core/register tests/simple-test.js"
+    "test": "mocha --compilers js:babel-core/register tests/main-tests.js"
   },
   "author": "",
   "license": "ISC",
